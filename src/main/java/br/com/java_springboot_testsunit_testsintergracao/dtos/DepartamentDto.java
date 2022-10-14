@@ -2,9 +2,11 @@ package br.com.java_springboot_testsunit_testsintergracao.dtos;
 
 import br.com.java_springboot_testsunit_testsintergracao.entities.Departament;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class DepartamentDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Integer id;

@@ -4,11 +4,13 @@ import br.com.java_springboot_testsunit_testsintergracao.entities.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 public class UserDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Integer id;

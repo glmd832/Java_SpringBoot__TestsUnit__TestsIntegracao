@@ -1,11 +1,13 @@
 package br.com.java_springboot_testsunit_testsintergracao.entities;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "table_employee")
 public class Employee implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -15,17 +17,17 @@ public class Employee implements Serializable {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "departament_id")
-    private Departament departament;
+    @JoinColumn(name = "departmentId")
+    private Departament department;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, String email, Departament departament) {
+    public Employee(Integer id, String name, String email, Departament department) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.departament = departament;
+        this.department = department;
     }
 
     public Integer getId() {
@@ -53,10 +55,10 @@ public class Employee implements Serializable {
     }
 
     public Departament getDepartament() {
-        return departament;
+        return department;
     }
 
     public void setDepartament(Departament departament) {
-        this.departament = departament;
+        this.department = departament;
     }
 }

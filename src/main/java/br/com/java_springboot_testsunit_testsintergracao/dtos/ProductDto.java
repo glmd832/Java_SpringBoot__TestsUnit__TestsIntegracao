@@ -6,12 +6,14 @@ import br.com.java_springboot_testsunit_testsintergracao.entities.Product;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class ProductDto implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private Integer id;

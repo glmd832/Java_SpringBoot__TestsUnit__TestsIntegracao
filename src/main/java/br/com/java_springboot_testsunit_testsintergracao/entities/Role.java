@@ -1,11 +1,13 @@
 package br.com.java_springboot_testsunit_testsintergracao.entities;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "table_role")
 public class Role implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
