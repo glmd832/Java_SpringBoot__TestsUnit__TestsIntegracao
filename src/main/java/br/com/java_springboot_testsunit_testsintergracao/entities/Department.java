@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Entity
 @Table(name = "table_department")
-public class Departament implements Serializable {
+public class Department implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -16,13 +16,13 @@ public class Departament implements Serializable {
     private Integer id;
     private String name;
 
-    @OneToMany(mappedBy = "departament")
+    @OneToMany(mappedBy = "department")
     private List<Employee> employees = new ArrayList<>();
 
-    public Departament() {
+    public Department() {
     }
 
-    public Departament(Integer id, String name) {
+    public Department(Integer id, String name) {
         this.id = id;
         this.name = name;
     }

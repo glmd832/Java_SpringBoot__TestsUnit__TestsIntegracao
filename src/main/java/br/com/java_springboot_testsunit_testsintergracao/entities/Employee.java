@@ -18,12 +18,12 @@ public class Employee implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "departmentId")
-    private Departament department;
+    private Department department;
 
     public Employee() {
     }
 
-    public Employee(Integer id, String name, String email, Departament department) {
+    public Employee(Integer id, String name, String email, Department department) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -54,11 +54,11 @@ public class Employee implements Serializable {
         this.email = email;
     }
 
-    public Departament getDepartament() {
+    public Department getDepartament() {
         return department;
     }
 
-    public void setDepartament(Departament departament) {
-        this.department = departament;
+    public void setDepartament(Department department) {
+        this.department = department;
     }
 }
