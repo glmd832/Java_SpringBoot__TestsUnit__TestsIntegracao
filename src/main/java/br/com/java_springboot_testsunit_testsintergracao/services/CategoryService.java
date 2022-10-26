@@ -22,15 +22,23 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Transactional
+    public CategoryDto insert(CategoryDto categoryDto){
+        Category category = new Category();
+        category.setName(categoryDto.getName());
+        category = categoryRepository.save(category);
+        return new CategoryDto(category);
+    }
+
     @Transactional(readOnly = true)
     public List<CategoryDto> findAll(){
         List<Category> list = categoryRepository.findAll();
-        return list.stream().map(category -> new CategoryDto(category)).collect(Collectors.toList());
+        return list.stream().map(CategoryDto::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public CategoryDto findById(Integer id){
-        Optional<Category> object = categoryRepository.findById(id);
+        Optional<Category> object = categoryRepository.findById(id);//optional caso venha nula não da exceção
         Category categoryEntity = object.orElseThrow(() ->
                 new ResourceNotFoundException("Id inexistente"));
         return new CategoryDto(categoryEntity);
@@ -44,14 +52,6 @@ public class CategoryService {
         } catch (DataIntegrityViolationException e){
             throw new DatabaseException("Violação de integridade");
         }
-    }
-
-    @Transactional
-    public CategoryDto insert(CategoryDto categoryDto){
-        Category category = new Category();
-        category.setName(categoryDto.getName());
-        category = categoryRepository.save(category);
-        return new CategoryDto(category);
     }
 
     public CategoryDto update(Integer id, CategoryDto categoryDto){

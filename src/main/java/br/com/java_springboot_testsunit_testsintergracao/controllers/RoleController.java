@@ -1,7 +1,7 @@
 package br.com.java_springboot_testsunit_testsintergracao.controllers;
 
-import br.com.java_springboot_testsunit_testsintergracao.dtos.EmployeeDto;
-import br.com.java_springboot_testsunit_testsintergracao.services.EmployeeService;
+import br.com.java_springboot_testsunit_testsintergracao.dtos.RoleDto;
+import br.com.java_springboot_testsunit_testsintergracao.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/employees")
-public class EmployeeController {
+@RequestMapping(value = "/roles")
+public class RoleController {
 
     @Autowired
-    EmployeeService employeeService;
+    RoleService roleService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> findAll() {
-        List<EmployeeDto> list = employeeService.findAll();
+    public ResponseEntity<List<RoleDto>> findAll() {
+        List<RoleDto> list = roleService.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<EmployeeDto> findById(@PathVariable Integer id) {
-        EmployeeDto employeeDto = employeeService.findById(id);
-        return ResponseEntity.ok().body(employeeDto);
+    public ResponseEntity<RoleDto> findById(@PathVariable Integer id) {
+        RoleDto roleDto = roleService.findById(id);
+        return ResponseEntity.ok().body(roleDto);
     }
 }
