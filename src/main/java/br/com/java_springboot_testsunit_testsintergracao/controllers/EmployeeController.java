@@ -4,10 +4,7 @@ import br.com.java_springboot_testsunit_testsintergracao.dtos.EmployeeDto;
 import br.com.java_springboot_testsunit_testsintergracao.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,5 +25,11 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> findById(@PathVariable Integer id) {
         EmployeeDto employeeDto = employeeService.findById(id);
         return ResponseEntity.ok().body(employeeDto);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        employeeService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

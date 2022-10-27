@@ -3,8 +3,11 @@ package br.com.java_springboot_testsunit_testsintergracao.services;
 import br.com.java_springboot_testsunit_testsintergracao.dtos.ProductDto;
 import br.com.java_springboot_testsunit_testsintergracao.entities.Product;
 import br.com.java_springboot_testsunit_testsintergracao.repositories.ProductRepository;
+import br.com.java_springboot_testsunit_testsintergracao.services.exceptions.DatabaseException;
 import br.com.java_springboot_testsunit_testsintergracao.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +34,15 @@ public class ProductService {
         Product product = object.orElseThrow(() ->
                 new ResourceNotFoundException("Id não encontado: " + id));
         return new ProductDto(product, product.getCategories());
+    }
+
+    public void delete(Integer id) {
+        try {
+            productRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id não encontrado: " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Violação de integridade");
+        }
     }
 }

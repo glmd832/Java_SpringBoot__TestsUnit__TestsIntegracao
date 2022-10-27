@@ -1,6 +1,9 @@
 package br.com.java_springboot_testsunit_testsintergracao.services.exceptions;
 
-public class DatabaseException extends RuntimeException{
+import java.io.Serial;
+
+public class DatabaseException extends RuntimeException {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     public DatabaseException(String msg) {

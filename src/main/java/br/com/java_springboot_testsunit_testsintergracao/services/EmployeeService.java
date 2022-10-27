@@ -4,8 +4,11 @@ import br.com.java_springboot_testsunit_testsintergracao.dtos.EmployeeDto;
 import br.com.java_springboot_testsunit_testsintergracao.entities.Department;
 import br.com.java_springboot_testsunit_testsintergracao.entities.Employee;
 import br.com.java_springboot_testsunit_testsintergracao.repositories.EmployeeRepository;
+import br.com.java_springboot_testsunit_testsintergracao.services.exceptions.DatabaseException;
 import br.com.java_springboot_testsunit_testsintergracao.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,5 +34,15 @@ public class EmployeeService {
         Employee employee = object.orElseThrow(() ->
                 new ResourceNotFoundException("Id não encontrado: " + id));
         return new EmployeeDto(employee);
+    }
+
+    public void delete(Integer id) {
+        try {
+            employeeRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id não encontrado: " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Violação de integridade");
+        }
     }
 }

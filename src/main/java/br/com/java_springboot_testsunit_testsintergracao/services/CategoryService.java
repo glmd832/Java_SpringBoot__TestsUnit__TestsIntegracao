@@ -23,45 +23,45 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     @Transactional
-    public CategoryDto insert(CategoryDto categoryDto){
+    public void insert(CategoryDto categoryDto) {
         Category category = new Category();
         category.setName(categoryDto.getName());
         category = categoryRepository.save(category);
-        return new CategoryDto(category);
+        new CategoryDto(category);
     }
 
     @Transactional(readOnly = true)
-    public List<CategoryDto> findAll(){
+    public List<CategoryDto> findAll() {
         List<Category> list = categoryRepository.findAll();
         return list.stream().map(CategoryDto::new).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public CategoryDto findById(Integer id){
+    public CategoryDto findById(Integer id) {
         Optional<Category> object = categoryRepository.findById(id);//optional caso venha nula não da exceção
         Category categoryEntity = object.orElseThrow(() ->
                 new ResourceNotFoundException("Id inexistente"));
         return new CategoryDto(categoryEntity);
     }
 
-    public void delete(Integer id){
-        try {
-            categoryRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e){
-            throw new ResourceNotFoundException("Id não encontrado: " + id);
-        } catch (DataIntegrityViolationException e){
-            throw new DatabaseException("Violação de integridade");
-        }
-    }
-
-    public CategoryDto update(Integer id, CategoryDto categoryDto){
+    public CategoryDto update(Integer id, CategoryDto categoryDto) {
         try {
             Category category = categoryRepository.getReferenceById(id);
             category.setName(categoryDto.getName());
             category = categoryRepository.save(category);
             return new CategoryDto(category);
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             throw new ResourceNotFoundException("Id " + id + " não encontrado");
+        }
+    }
+
+    public void delete(Integer id) {
+        try {
+            categoryRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException e) {
+            throw new ResourceNotFoundException("Id não encontrado: " + id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DatabaseException("Violação de integridade");
         }
     }
 }
