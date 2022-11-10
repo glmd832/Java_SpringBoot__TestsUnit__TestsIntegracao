@@ -38,13 +38,17 @@ public class ProductDto implements Serializable {
         this.image = image;
     }
 
-    public ProductDto(Product productEntity, Set<Category> categories) {
-        this.id = productEntity.getId();
-        this.title = productEntity.getTitle();
-        this.description = productEntity.getDescription();
-        this.price = productEntity.getPrice();
-        this.image = productEntity.getImage();
-        categories.forEach(category -> this.categories.add(new CategoryDto((Category) categories)));
+    public ProductDto(Product entity) {
+        id = entity.getId();
+        title = entity.getTitle();
+        description = entity.getDescription();
+        price = entity.getPrice();
+        image = entity.getImage();
+    }
+
+    public ProductDto(Product entity, Set<Category> categories) { // 0 1 2 cat
+        this(entity);
+        categories.forEach(cat -> this.categories.add(new CategoryDto(cat)));
     }
 
     public Integer getId() {
